@@ -1,0 +1,162 @@
+[gd_scene load_steps=15 format=3 uid="uid://dtilpyyc3gkh2"]
+
+[ext_resource type="Script" path="res://Scripts/bird.gd" id="1_urrsu"]
+[ext_resource type="Texture2D" uid="uid://b1b0qngmuh0cm" path="res://Assets/Player/StyleBird1/Bird1-7.png" id="2_vhwx1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q700l"]
+radius = 18.0
+height = 60.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4ref"]
+atlas = ExtResource("2_vhwx1")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtjca"]
+atlas = ExtResource("2_vhwx1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cif6"]
+atlas = ExtResource("2_vhwx1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2g5h"]
+atlas = ExtResource("2_vhwx1")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmf0o"]
+atlas = ExtResource("2_vhwx1")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qk3yw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4ref")
+}],
+"loop": true,
+"name": &"flap_wings_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtjca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7cif6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2g5h")
+}],
+"loop": true,
+"name": &"flap_wings_up",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmf0o")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_ynlcj"]
+script/source = "extends AnimatedSprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_s40s1"]
+script/source = "extends Node
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_fgeou"]
+script/source = "extends Node
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_sa4xd"]
+script/source = "extends Node
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_np2tq"]
+script/source = "extends Node
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="Bird" type="CharacterBody2D"]
+position = Vector2(0, -10)
+motion_mode = 1
+script = ExtResource("1_urrsu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_q700l")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(4.02148, 4.02148)
+sprite_frames = SubResource("SpriteFrames_qk3yw")
+animation = &"flap_wings_down"
+autoplay = "idle"
+script = SubResource("GDScript_ynlcj")
+
+[node name="Controllers" type="Node" parent="."]
+
+[node name="StateMachine" type="Node" parent="Controllers"]
+script = SubResource("GDScript_s40s1")
+
+[node name="idle" type="Node" parent="Controllers/StateMachine"]
+script = SubResource("GDScript_fgeou")
+
+[node name="jump" type="Node" parent="Controllers/StateMachine"]
+script = SubResource("GDScript_sa4xd")
+
+[node name="fall" type="Node" parent="Controllers/StateMachine"]
+script = SubResource("GDScript_np2tq")

@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://d3t62bxcdnwj"]
+
+[ext_resource type="Script" path="res://Scripts/pipe_pair.gd" id="1_104ns"]
+[ext_resource type="Texture2D" uid="uid://drx10uoxjpba5" path="res://Assets/pipe-green.png" id="2_ej0xa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjuro"]
+size = Vector2(72, 477)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kerov"]
+size = Vector2(72, 444)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1cady"]
+size = Vector2(20, 146)
+
+[node name="PipePair" type="Node2D"]
+script = ExtResource("1_104ns")
+
+[node name="TopPipe" type="Area2D" parent="."]
+position = Vector2(0, -300)
+rotation = -3.14159
+
+[node name="TopPipeSrpite" type="Sprite2D" parent="TopPipe"]
+position = Vector2(12, 0)
+scale = Vector2(1.5, 1)
+texture = ExtResource("2_ej0xa")
+region_rect = Rect2(0, 0, 128, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopPipe"]
+position = Vector2(13, -1.5)
+shape = SubResource("RectangleShape2D_fjuro")
+
+[node name="BottomPipe" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomPipe"]
+position = Vector2(-13, 285)
+shape = SubResource("RectangleShape2D_kerov")
+
+[node name="BottomPipeSprite" type="Sprite2D" parent="BottomPipe"]
+position = Vector2(-12, 300)
+scale = Vector2(1.5, 1)
+texture = ExtResource("2_ej0xa")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(45, 0)
+
+[node name="Scored" type="Area2D" parent="."]
+position = Vector2(45, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scored"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_1cady")
+
+[connection signal="body_entered" from="TopPipe" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="BottomPipe" to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="Scored" to="." method="_on_scored_body_entered"]
